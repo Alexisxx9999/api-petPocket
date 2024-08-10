@@ -1,5 +1,7 @@
 // Database/models/vacunas.js
-const { Sequelize } = require("sequelize");
+const moment = require("moment-timezone");
+
+
 
 const vacunas = (sequelize, type) => {
   return sequelize.define(
@@ -20,7 +22,7 @@ const vacunas = (sequelize, type) => {
         },
         allowNull: false,
       },
-     
+
       idEnfermedad: {
         type: type.INTEGER,
         references: {
@@ -36,7 +38,7 @@ const vacunas = (sequelize, type) => {
       },
       createVacuna: {
         type: type.DATE,
-        defaultValue: Sequelize.NOW,
+        defaultValue: () => moment().tz("America/Guayaquil").format(),
       },
       estadoVacuna: {
         type: type.STRING,

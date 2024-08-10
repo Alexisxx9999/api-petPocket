@@ -35,8 +35,9 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "DELETE", "PATCH", "OPTIONS"],
+    origin: "http://localhost:5173", // Asegúrate de que este sea el dominio correcto
+    credentials: true, // Permitir el envío de cookies y credenciales
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],
   })
 );
@@ -168,7 +169,7 @@ app.use((req, res, next) => {
   next();
 });
 /*  */
-/* pp.use(cookieParser());
+app.use(cookieParser());
 
 // Configura csrf después de cookie-parser
 const csrfMiddleware = csrf({ cookie: true });
@@ -178,9 +179,7 @@ app.use(csrfMiddleware);
 app.use((req, res, next) => {
   res.locals.csrfToken = req.csrfToken();
   next();
-}); 
-
-// Manejo del error CSRF
+});
 app.use((err, req, res, next) => {
   if (err.code !== "EBADCSRFTOKEN") return next(err);
 
@@ -188,7 +187,7 @@ app.use((err, req, res, next) => {
   res.send(
     "La validación del token CSRF ha fallado. Por favor, recarga la página."
   );
-}); */
+});
 
 // Configurar archivos estáticos
 app.use(express.static(path.join(__dirname, "public")));

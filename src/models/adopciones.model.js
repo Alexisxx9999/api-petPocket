@@ -1,4 +1,4 @@
-const { Sequelize } = require("sequelize");
+const moment = require("moment-timezone");
 const adopciones = (sequelize, type) => {
   return sequelize.define(
     "adopciones",
@@ -17,7 +17,7 @@ const adopciones = (sequelize, type) => {
           key: "idMascota",
         },
       },
-     
+
       idUsuario: {
         type: type.INTEGER,
         comment: "id del usuario",
@@ -33,7 +33,7 @@ const adopciones = (sequelize, type) => {
       },
       createAdopcion: {
         type: type.DATE,
-        defaultValue: Sequelize.NOW,
+        defaultValue: () => moment().tz("America/Guayaquil").format(),
       },
       estadoAdopcion: {
         type: type.STRING,

@@ -1,4 +1,5 @@
-const { Sequelize } = require("sequelize");
+
+const moment = require("moment-timezone");
 
 const usuarios = (sequelize, type) => {
   return sequelize.define(
@@ -45,7 +46,7 @@ const usuarios = (sequelize, type) => {
       createUsuario: {
         type: type.DATE,
         comment: "Creación del usuario",
-        defaultValue: Sequelize.NOW,
+        defaultValue: () => moment().tz("America/Guayaquil").format(),
       },
       fotoUsuario: {
         type: type.STRING,

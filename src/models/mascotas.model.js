@@ -1,5 +1,6 @@
 // modelos/mascotas.js
-const { Sequelize } = require("sequelize");
+
+const moment = require("moment-timezone");
 
 const mascotas = (sequelize, type) => {
   return sequelize.define(
@@ -16,7 +17,7 @@ const mascotas = (sequelize, type) => {
         comment: "nombre de la mascota",
       },
       fechaNacimiento: {
-        type: type.DATE,
+        type: type.STRING,
         comment: "fecha de nacimiento de la mascota",
       },
       sexo: {
@@ -46,7 +47,7 @@ const mascotas = (sequelize, type) => {
       },
       createMascota: {
         type: type.DATE,
-        defaultValue: Sequelize.NOW,
+        defaultValue: () => moment().tz("America/Guayaquil").format(),
       },
       estadoMascota: {
         type: type.STRING,
